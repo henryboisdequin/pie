@@ -1,8 +1,8 @@
 #[cfg(test)]
 pub mod test;
 
-use std::convert::TryFrom;
-use std::str::FromStr;
+// use std::convert::TryFrom;
+// use std::str::FromStr;
 
 /// Tokens for algebraic expressions.
 #[derive(Debug, Clone, PartialEq)]
@@ -60,9 +60,9 @@ impl Lexer {
         }
     }
 
-    fn next_char(&mut self) -> char {
-        self.input.chars().nth(self.current_pos).unwrap_or('\0')
-    }
+    // fn next_char(&mut self) -> char {
+    //     self.input.chars().nth(self.current_pos).unwrap_or('\0')
+    // }
 
     fn advance(&mut self) -> char {
         self.current_pos += 1;

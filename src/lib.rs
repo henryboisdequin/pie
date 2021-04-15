@@ -6,12 +6,13 @@
 //! or statistical problems and graphing.
 
 #![warn(missing_docs, rust_2018_idioms, missing_debug_implementations)]
+#![deny(dead_code)]
 
 /// Abstract syntax tree handler for Pie.
 pub mod ast;
 /// Token handler for Pie.
 pub mod lexer;
 
-fn run(input: String) {
-    todo!();
-}
+// fn run(input: String) {
+//     todo!();
+// }
