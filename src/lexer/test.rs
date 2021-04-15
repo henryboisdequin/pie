@@ -4,18 +4,15 @@ mod test_lexer {
 
     #[test]
     fn test_basic_tokens() {
-        let mut lexer = Lexer::new(String::from("2x"));
-        assert_eq!(
-            lexer.tokens(),
-            vec![Token::Int(2), Token::Var(String::from("x"))]
-        );
+        let tokens = Lexer::tokens(String::from("2x"));
+        assert_eq!(tokens, vec![Token::Int(2), Token::Var(String::from("x"))]);
     }
 
     #[test]
     fn test_ops() {
-        let mut lexer = Lexer::new(String::from("+-*/"));
+        let tokens = Lexer::tokens(String::from("+-*/"));
         assert_eq!(
-            lexer.tokens(),
+            tokens,
             vec![
                 Token::Op(Op::Plus),
                 Token::Op(Op::Minus),
@@ -27,9 +24,9 @@ mod test_lexer {
 
     #[test]
     fn test_parens() {
-        let mut lexer = Lexer::new(String::from("(1x)"));
+        let tokens = Lexer::tokens(String::from("(1x)"));
         assert_eq!(
-            lexer.tokens(),
+            tokens,
             vec![
                 Token::LParen,
                 Token::Int(1),
@@ -41,9 +38,9 @@ mod test_lexer {
 
     #[test]
     fn test_linear_eq() {
-        let mut lexer = Lexer::new(String::from("10x = 3 * (x + 3)"));
+        let tokens = Lexer::tokens(String::from("10x = 3 * (x + 3)"));
         assert_eq!(
-            lexer.tokens(),
+            tokens,
             vec![
                 // ERROR: current impl records 10 as `[Token::Int(1), Token::Int(0)]`
                 Token::Int(10),
@@ -62,9 +59,9 @@ mod test_lexer {
 
     #[test]
     fn test_combine_like_terms() {
-        let mut lexer = Lexer::new(String::from("8x + y / 3 * (2y - x)"));
+        let tokens = Lexer::tokens(String::from("8x + y / 3 * (2y - x)"));
         assert_eq!(
-            lexer.tokens(),
+            tokens,
             vec![
                 Token::Int(8),
                 Token::Var(String::from("x")),

@@ -48,16 +48,22 @@ pub struct Lexer {
     start_pos: usize,
 }
 
-// todo: combine `new` and `tokens` functions
 impl Lexer {
-    /// Returns a new `TokenHandler` with any empty token array and the given input.
-    pub fn new(input: String) -> Self {
-        Self {
+    /// Gives the tokens of the given input.
+    pub fn tokens(input: String) -> Vec<Token> {
+        let mut lexer = Self {
             tokens: Vec::new(),
             input,
             current_pos: 0,
             start_pos: 0,
+        };
+
+        while !lexer.is_end() {
+            lexer.start_pos = lexer.current_pos;
+            lexer.make_tokens();
         }
+
+        lexer.tokens.clone()
     }
 
     // fn next_char(&mut self) -> char {
@@ -122,14 +128,4 @@ impl Lexer {
 
     //     self.add_token(Token::Int(parsed));
     // }
-
-    /// Gives the tokens of the given input.
-    pub fn tokens(&mut self) -> Vec<Token> {
-        while !self.is_end() {
-            self.start_pos = self.current_pos;
-            self.make_tokens();
-        }
-
-        self.tokens.clone()
-    }
 }
